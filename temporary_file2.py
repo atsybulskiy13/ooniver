@@ -19,6 +19,8 @@ user2 = {
     "age": age
 }
 
-avg_age = int((user1["age"] + user2["age"]) / 2)
+users = [user1, user2]
+
+avg_age = int((user1["age"] + user2["age"]) / users.__len__())
 
 print("The average age is: ", avg_age)
