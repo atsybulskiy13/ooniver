@@ -27,6 +27,6 @@ ages = []
 for user in users.values():
     ages.append(user["age"])
 
-avg_ages = int(mean(ages))
+avg_age = int(mean(ages))
 
-print("The average age is: ", avg_ages)
+print("The average age is: ", avg_age)
