@@ -1,4 +1,3 @@
-
 for number in range(0, 1001):
     sum1 = 0
     for i in str(number):
