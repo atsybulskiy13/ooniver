@@ -4,14 +4,14 @@ student3 = {}
 
 students = [student1, student2, student3]
 
-for student in range(len(students)):
-    students[student]['name'] = input(f'Enter name for student {student + 1}: ')
-    students[student]['last_name'] = input(f'Enter last name for student {student + 1}: ')
-    students[student]['age'] = int(input(f'Enter age for student {student + 1}: '))
-    students[student]['form'] = int(input(f'Enter form for student {student + 1}: '))
-    students[student]['math_score'] = int(input(f'Enter math score for student {student + 1}: '))
-    students[student]['eng_score'] = int(input(f'Enter english score for student {student + 1}: '))
-    students[student]['sport_score'] = int(input(f'Enter sport score for student {student + 1}: '))
+for index in range(len(students)):
+    students[index]['name'] = input(f'Enter name for student {index + 1}: ')
+    students[index]['last_name'] = input(f'Enter last name for student {index + 1}: ')
+    students[index]['age'] = int(input(f'Enter age for student {index + 1}: '))
+    students[index]['form'] = int(input(f'Enter form for student {index + 1}: '))
+    students[index]['math_score'] = int(input(f'Enter math score for student {index + 1}: '))
+    students[index]['eng_score'] = int(input(f'Enter english score for student {index + 1}: '))
+    students[index]['sport_score'] = int(input(f'Enter sport score for student {index + 1}: '))
 
 print(f'Original students dict:\n {students}')
 print()

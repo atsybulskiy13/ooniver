@@ -3,10 +3,13 @@ from random import randint
 first_list = []
 second_list = []
 
-for i in range(0, randint(1, 20)):
+first_list_length = randint(1, 20)
+second_list_length = randint(1, 20)
+
+for i in range(0, first_list_length):
     first_list.append(i)
 
-for i in range(0, randint(1, 20)):
+for i in range(0, second_list_length):
     second_list.append(i)
 
 print(f'First list:\n{first_list} ')
