@@ -36,12 +36,7 @@ pushkin = pushkin.lower()
 splited_pushkin = pushkin.split()
 all_letters_pushkin = ''.join(splited_pushkin)
 
-letters_list = []
-
-for i in all_letters_pushkin:
-    letters_list.append(i)
-
-unic_letters_list = list(set(letters_list))
+unic_letters_list = list(set(all_letters_pushkin))
 
 letters_dict = {}
 
