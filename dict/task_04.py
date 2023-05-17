@@ -32,7 +32,6 @@ pushkin = '''У лукоморья дуб зелёный;
 Под ним сидел, и кот учёный
 Свои мне сказки говорил.'''
 
-pushkin = pushkin.lower()
 splited_pushkin = pushkin.split()
 all_letters_pushkin = ''.join(splited_pushkin)
 
