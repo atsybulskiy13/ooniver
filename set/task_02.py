@@ -12,11 +12,11 @@ print(f'Original first list: {first_list}')
 print(f'Original second list: {second_list}')
 print()
 
-first_list_unics = list(set(first_list).difference(set(second_list)))
+first_list_unics = set(first_list).difference(set(second_list))
 
-second_list_unics = list(set(second_list).difference(set(first_list)))
+second_list_unics = set(second_list).difference(set(first_list))
 
-unics = list(set(first_list).intersection(set(second_list)))
+unics = set(first_list).intersection(set(second_list))
 
 print(f'Unic numbers from first list: {first_list_unics}')
 print(f'Unic numbers from second list: {second_list_unics}')
