@@ -4,8 +4,7 @@ from random import randint
 def create_matrix(rows_number: int, elements_in_rows: int):
     matrix = []
     for i in range(rows_number):
-        random_elem = randint(0, 100)
-        matrix.append([random_elem] * elements_in_rows)
+        matrix.append([0] * elements_in_rows)
 
     for row in range(len(matrix)):
         for elem in range(len(matrix[row])):
@@ -53,8 +52,6 @@ def sort_matrix_ascending(matrix):
                     last_elem_in_row]
                 sort_flag = True
 
-    return matrix
-
 
 def sort_matrix_descending(matrix):
     last_elem_in_row = len(matrix[0]) - 1
@@ -74,8 +71,6 @@ def sort_matrix_descending(matrix):
                     last_elem_in_row]
                 sort_flag = True
 
-    return matrix
-
 
 def if_square_matrix(matrix):
     rows_quantity = len(matrix)
@@ -90,11 +85,15 @@ def main():
     matrix1 = create_matrix(5, 5)
     print_matrix(matrix1)
     print()
-    print(find_min_max(matrix1))
+    min_matrix, max_matrix = find_min_max(matrix1)
+    print(f'Min matrix element: {min_matrix}')
+    print(f'Max matrix element: {max_matrix}')
     print()
-    print_matrix(sort_matrix_ascending(matrix1))
+    sort_matrix_ascending(matrix1)
+    print_matrix(matrix1)
     print()
-    print_matrix(sort_matrix_descending(matrix1))
+    sort_matrix_descending(matrix1)
+    print_matrix(matrix1)
     print()
     if_square_matrix(matrix1)
 
