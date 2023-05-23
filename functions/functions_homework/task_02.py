@@ -1,10 +1,10 @@
 def quadratic_equation(a: int, b: int = 0, c: int = 0):
+
+    x_1 = x_2 = None
+
     if a != 0:
 
         d = (b ** 2) - (4 * a * c)
-        print(d)
-
-        x_1 = x_2 = None
 
         if d < 0:
             print('No roots!')
@@ -18,6 +18,7 @@ def quadratic_equation(a: int, b: int = 0, c: int = 0):
 
     else:
         print("It's not a quadratic equation, a cannot be = 0")
+        return x_1, x_2
 
 
 x1, x2 = quadratic_equation(5, 3, -26)

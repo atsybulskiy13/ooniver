@@ -1,6 +1,6 @@
-def if_palindrom():
+def if_palindrom(string: str):
 
-    splited_string = (input('Enter your string: ')).split()
+    splited_string = string.split()
 
     join_string = ''.join(splited_string)
 
@@ -15,4 +15,6 @@ def if_palindrom():
         print("It's not palindrom!")
 
 
-if_palindrom()
+my_string = input('Enter your string: ')
+
+if_palindrom(my_string)
