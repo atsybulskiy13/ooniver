@@ -1,4 +1,4 @@
-def if_palindrom(string: str):
+def print_if_palindrom(string: str):
 
     splited_string = string.split()
 
@@ -17,4 +17,4 @@ def if_palindrom(string: str):
 
 my_string = input('Enter your string: ')
 
-if_palindrom(my_string)
+print_if_palindrom(my_string)
