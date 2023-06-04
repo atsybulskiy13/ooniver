@@ -1,5 +1,5 @@
 import csv
-from files.svg_task import get_data
+from files.csv_task import get_data
 import menu
 
 table_head = ['id', 'name', 'last_name', 'age']
