@@ -1,5 +1,6 @@
 import csv
-from ooniver.files.svg_task import get_data
+from files.svg_task import get_data
+import menu
 
 table_head = ['id', 'name', 'last_name', 'age']
 
@@ -7,8 +8,9 @@ table_head = ['id', 'name', 'last_name', 'age']
 def read_csv():
     users = []
 
-    with open('svg_task/users.csv') as users_file:
+    with open('users.csv') as users_file:
         csv_reader = csv.reader(users_file)
+
         for row in csv_reader:
             users.append(row)
 
@@ -16,8 +18,10 @@ def read_csv():
 
 
 def write_scv(users):
-    with open('svg_task/users.csv', 'w') as users_file:
+    with open('users.csv', 'w') as users_file:
+
         csv_writer = csv.writer(users_file)
+
         if users[0][0] == 'id':
             csv_writer.writerows(users)
         else:
@@ -26,7 +30,6 @@ def write_scv(users):
 
 
 def add_user_in_csv():
-
     user = get_data.get_user_data()
 
     last_id = get_last_user_id()
@@ -45,7 +48,8 @@ def get_last_user_id():
 
     last_id = 0
 
-    with open('svg_task/users.csv') as users_file:
+    with open('users.csv') as users_file:
+
         csv_reader = csv.reader(users_file)
 
         for row in csv_reader:
@@ -61,7 +65,9 @@ def get_last_user_id():
     return last_id
 
 
-def get_user_by_id(id):
+def get_user_by_id():
+    id = menu.get_user_id()
+
     users = read_csv()
 
     for user in users:
@@ -69,7 +75,9 @@ def get_user_by_id(id):
             return user
 
 
-def delete_user_by_id(id):
+def delete_user_by_id():
+    id = menu.get_user_id()
+
     users = read_csv()
 
     for user in users:
@@ -79,7 +87,9 @@ def delete_user_by_id(id):
     write_scv(users)
 
 
-def change_user_by_id(id):
+def change_user_by_id():
+    id = menu.get_user_id()
+
     users = read_csv()
 
     for user in users:
@@ -103,3 +113,11 @@ def find_user_by_lastname():
             found_users.append(user)
 
     return found_users
+
+
+def print_csv():
+
+    users = read_csv()
+
+    for user in users:
+        print(*user)

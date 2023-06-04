@@ -1,5 +1,3 @@
-from InquirerPy import inquirer
-
 
 def get_user_data():
     name = input('Enter your name: ').lower()
