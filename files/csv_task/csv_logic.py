@@ -55,29 +55,27 @@ def get_last_user_id():
         for row in csv_reader:
             rows.append(row)
 
-        if rows == table_head:
+        if rows[-1] == table_head:
             last_id = 0
         else:
-            for row in rows[1::]:
-                if int(row[0]) > last_id:
-                    last_id = int(row[0])
+            last_row = rows[-1]
+            last_id = int(last_row[0])
+            # for row in rows[1::]:
+            #     if int(row[0]) > last_id:
+            #         last_id = int(row[0])
 
     return last_id
 
 
-def get_user_by_id():
-    id = menu.get_user_id()
-
+def get_user_by_id(id):
     users = read_csv()
 
     for user in users:
-        if user[0] == str(id):
+        if user[0] == id:
             return user
 
 
-def delete_user_by_id():
-    id = menu.get_user_id()
-
+def delete_user_by_id(id):
     users = read_csv()
 
     for user in users:
@@ -87,9 +85,7 @@ def delete_user_by_id():
     write_scv(users)
 
 
-def change_user_by_id():
-    id = menu.get_user_id()
-
+def change_user_by_id(id):
     users = read_csv()
 
     for user in users:
@@ -101,7 +97,7 @@ def change_user_by_id():
     write_scv(users)
 
 
-def find_user_by_lastname():
+def return_user_by_lastname():
     users = read_csv()
 
     lastname = input("Enter user's lastname: ").lower()
@@ -115,9 +111,8 @@ def find_user_by_lastname():
     return found_users
 
 
-def print_csv():
-
+def print_csv_without_head():
     users = read_csv()
 
-    for user in users:
+    for user in users[1::]:
         print(*user)

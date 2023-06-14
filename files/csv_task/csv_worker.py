@@ -4,7 +4,6 @@ import csv_logic
 
 
 def main():
-
     menu.show_menu()
 
     operation = menu.get_user_option()
@@ -12,47 +11,41 @@ def main():
     match operation:
         case '1':
 
-            csv_logic.print_csv()
-
-            main()
+            csv_logic.print_csv_without_head()
 
         case '2':
 
             csv_logic.add_user_in_csv()
 
-            main()
-
         case '3':
 
-            user = csv_logic.get_user_by_id()
+            id = menu.get_user_id()
+            user = csv_logic.get_user_by_id(id)
             print(*user)
-
-            main()
 
         case '4':
 
-            csv_logic.change_user_by_id()
-
-            main()
+            id = menu.get_user_id()
+            csv_logic.change_user_by_id(id)
 
         case '5':
 
-            csv_logic.delete_user_by_id()
-
-            main()
+            id = menu.get_user_id()
+            csv_logic.delete_user_by_id(id)
 
         case '6':
 
-            users = csv_logic.find_user_by_lastname()
+            users = csv_logic.return_user_by_lastname()
 
             for user in users:
                 print(*user)
 
-            main()
-
         case '7':
 
             print('The program finished!')
+            return
+
+    main()
 
 
 if __name__ == '__main__':
