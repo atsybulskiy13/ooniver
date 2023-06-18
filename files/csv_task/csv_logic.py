@@ -5,16 +5,17 @@ import menu
 table_head = ['id', 'name', 'last_name', 'age']
 
 
-def read_csv():
+def get_users_from_csv():
     users = []
 
     with open('users.csv') as users_file:
         csv_reader = csv.reader(users_file)
 
         for row in csv_reader:
+
             users.append(row)
 
-    return users
+    return users[1::]
 
 
 def write_scv(users):
@@ -34,7 +35,7 @@ def add_user_in_csv():
 
     last_id = get_last_user_id()
 
-    users = read_csv()
+    users = get_users_from_csv()
 
     user.insert(0, last_id + 1)
 
@@ -46,8 +47,6 @@ def add_user_in_csv():
 def get_last_user_id():
     rows = []
 
-    last_id = 0
-
     with open('users.csv') as users_file:
 
         csv_reader = csv.reader(users_file)
@@ -55,30 +54,28 @@ def get_last_user_id():
         for row in csv_reader:
             rows.append(row)
 
-        if rows == table_head:
+        if csv_reader.line_num == 0:
             last_id = 0
         else:
-            for row in rows[1::]:
-                if int(row[0]) > last_id:
-                    last_id = int(row[0])
+            if rows[-1] == table_head:
+                last_id = 0
+            else:
+                last_row = rows[-1]
+                last_id = int(last_row[0])
 
     return last_id
 
 
-def get_user_by_id():
-    id = menu.get_user_id()
-
-    users = read_csv()
+def get_user_by_id(id):
+    users = get_users_from_csv()
 
     for user in users:
-        if user[0] == str(id):
+        if user[0] == id:
             return user
 
 
-def delete_user_by_id():
-    id = menu.get_user_id()
-
-    users = read_csv()
+def delete_user_by_id(id):
+    users = get_users_from_csv()
 
     for user in users:
         if user[0] == str(id):
@@ -87,37 +84,34 @@ def delete_user_by_id():
     write_scv(users)
 
 
-def change_user_by_id():
-    id = menu.get_user_id()
-
-    users = read_csv()
+def change_user_by_id(id):
+    users = get_users_from_csv()
 
     for user in users:
         if user[0] == str(id):
-            user[1] = input('Enter new user name: ').lower()
-            user[2] = input('Enter new user lastname: ').lower()
+            user[1] = input('Enter new user name: ')
+            user[2] = input('Enter new user lastname: ')
             user[3] = input('Enter new user age: ')
 
     write_scv(users)
 
 
-def find_user_by_lastname():
-    users = read_csv()
+def return_user_by_lastname():
+    users = get_users_from_csv()
 
-    lastname = input("Enter user's lastname: ").lower()
+    lastname = input("Enter user's lastname: ")
 
     found_users = []
 
     for user in users:
-        if user[2] == lastname:
+        if user[2].lower() == lastname.lower():
             found_users.append(user)
 
     return found_users
 
 
-def print_csv():
-
-    users = read_csv()
+def print_csv_users():
+    users = get_users_from_csv()
 
     for user in users:
         print(*user)

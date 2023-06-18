@@ -1,4 +1,3 @@
-
 def get_user_data():
     name = input('Enter your name: ').lower()
     last_name = input('Enter your last name: ').lower()
