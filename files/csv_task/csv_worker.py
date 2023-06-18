@@ -11,7 +11,7 @@ def main():
     match operation:
         case '1':
 
-            csv_logic.print_csv_without_head()
+            csv_logic.print_csv_users()
 
         case '2':
 
