@@ -21,7 +21,7 @@ class Person:
         return self.__salary
 
     @salary.setter
-    def salary(self, salary):
+    def salary(self, salary=0):
         if salary:
             self.__salary = salary
         else:
@@ -36,7 +36,7 @@ sunshine.set_age(45)
 
 print(sunshine.get_age())
 
-sunshine.salary = ''
+sunshine.salary = 0
 
 print(sunshine.salary)
 
