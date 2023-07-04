@@ -6,12 +6,6 @@ class Rescuer:
     def save(self):
         print('Saving...')
 
-    def run(self):
-        print('running...')
-
-    def jump(self):
-        print('jumping...')
-
     def chill(self):
         print('Relax, take it easy...')
 
@@ -21,17 +15,32 @@ class Mouse(Rescuer):
     def eat_everything(self):
         print('Eating...')
 
+    def jump(self):
+        print('jumping...')
+
+    def run(self):
+        print('running...')
+
 
 class Chipmunk(Rescuer):
 
     def eat_nuts(self):
         print('omnomnom')
 
+    def jump(self):
+        print('jumping...')
+
+    def run(self):
+        print('running...')
+
 
 class Fly(Rescuer):
 
     def fly(self):
         print('I believe i can fly...')
+
+    def jump(self):
+        print()
 
 
 Chip = Chipmunk('Chip')

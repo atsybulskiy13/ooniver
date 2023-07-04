@@ -1,6 +1,6 @@
 class Rescuer:
-    weight = 0.019
-    height = 10
+    weight = 0
+    height = 0
     fatigue = 0
     able_to_work = True
 
@@ -19,20 +19,6 @@ class Rescuer:
     def save(self):
         if self.able_to_work:
             print('Saving...')
-            self.change_fatigue()
-        else:
-            print('Need to chill')
-
-    def run(self):
-        if self.able_to_work:
-            print('running...')
-            self.change_fatigue()
-        else:
-            print('Need to chill')
-
-    def jump(self):
-        if self.able_to_work:
-            print('jumping...')
             self.change_fatigue()
         else:
             print('Need to chill')
@@ -58,12 +44,40 @@ class Mouse(Rescuer):
         else:
             print('Need to chill')
 
+    def run(self):
+        if self.able_to_work:
+            print('running...')
+            self.change_fatigue()
+        else:
+            print('Need to chill')
+
+    def jump(self):
+        if self.able_to_work:
+            print('jumping...')
+            self.change_fatigue()
+        else:
+            print('Need to chill')
+
 
 class Chipmunk(Rescuer):
 
     def eat_nuts(self):
         if self.able_to_work:
             print('omnomnom')
+            self.change_fatigue()
+        else:
+            print('Need to chill')
+
+    def run(self):
+        if self.able_to_work:
+            print('running...')
+            self.change_fatigue()
+        else:
+            print('Need to chill')
+
+    def jump(self):
+        if self.able_to_work:
+            print('jumping...')
             self.change_fatigue()
         else:
             print('Need to chill')
@@ -89,19 +103,5 @@ class Fly(Rescuer):
 
 
 Vzhik = Fly('Vzhik')
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
-Vzhik.jump()
 Vzhik.chill()
-Vzhik.jump()
-Vzhik.jump()
 print(Vzhik.fatigue)
