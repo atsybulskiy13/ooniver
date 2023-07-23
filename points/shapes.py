@@ -6,17 +6,10 @@ class Line:
     def __init__(self, point_a: Point, point_b: Point):
         self.point_a = point_a
         self.point_b = point_b
+        self.line_length = self.point_a.find_distance_btw_points(self.point_b)
 
     def __str__(self):
         return f'Line ({self.point_a}, {self.point_b})'
-
-    def find_line_length(self):
-        a = self.point_a.x - self.point_b.x
-        b = self.point_a.y - self.point_b.y
-
-        line_length = (a ** 2 + b ** 2) ** 0.5
-
-        return line_length
 
 
 class Square:
@@ -32,7 +25,7 @@ class Square:
         self.point_d = point_d
 
     def find_diagonal_length(self):
-        diagonal_length = Line(self.point_a, self.point_c).find_line_length()
+        diagonal_length = self.point_a.find_distance_btw_points(self.point_c)
 
         return diagonal_length
 
@@ -50,42 +43,28 @@ class Square:
 
 
 class Triangle:
-    if_triangle = True
 
     def __init__(self, point_a: Point, point_b: Point, point_c: Point):
         self.point_a = point_a
         self.point_b = point_b
         self.point_c = point_c
 
-        self.ab_side = Line(self.point_a, self.point_b).find_line_length()
-        self.ac_side = Line(self.point_a, self.point_c).find_line_length()
-        self.bc_side = Line(self.point_b, self.point_c).find_line_length()
+        self.ab_side = self.point_a.find_distance_btw_points(self.point_b)
+        self.ac_side = self.point_a.find_distance_btw_points(self.point_c)
+        self.bc_side = self.point_b.find_distance_btw_points(self.point_c)
 
-        if self.ab_side + self.bc_side <= self.ac_side or self.ab_side + self.ac_side <= self.bc_side or \
-                self.bc_side + self.ac_side <= self.ab_side:
-
-            self.if_triangle = False
+        if self.ab_side + self.bc_side <= self.ac_side or self.ab_side + self.ac_side <= self.bc_side or self.bc_side \
+                + self.ac_side <= self.ab_side:
+            raise Exception("It's not a triangle")
 
     def find_triangle_perimeter(self):
+        triangle_perimeter = self.ab_side + self.ac_side + self.bc_side
 
-        if self.if_triangle:
-
-            triangle_perimeter = self.ab_side + self.ac_side + self.bc_side
-
-            return triangle_perimeter
-
-        else:
-            return 'It is not a triangle'
+        return triangle_perimeter
 
     def find_triangle_area(self):
+        pp = Triangle.find_triangle_perimeter(self) / 2
 
-        if self.if_triangle:
+        triangle_area = (pp * (pp - self.ac_side) * (pp - self.ab_side) * (pp - self.bc_side)) ** 0.5
 
-            pp = Triangle.find_triangle_perimeter(self) / 2
-
-            triangle_area = (pp * (pp - self.ac_side) * (pp - self.ab_side) * (pp - self.bc_side)) ** 0.5
-
-            return triangle_area
-
-        else:
-            return 'It is not a triangle'
+        return triangle_area

@@ -80,6 +80,8 @@ class Rodents(Animals):
 
 class Mouse(Rodents):
 
+    weight = 0.3
+
     def eat_everything(self):
         if self.able_to_work:
             print('Eating...')
@@ -90,6 +92,8 @@ class Mouse(Rodents):
 
 class Chipmunk(Rodents):
 
+    weight = 0.5
+
     def eat_nuts(self):
         if self.able_to_work:
             print('omnomnom')
@@ -99,6 +103,8 @@ class Chipmunk(Rodents):
 
 
 class Fly(Animals):
+
+    weight = 0.01
 
     def change_weight(self, weight=0):
         if weight < 0:
