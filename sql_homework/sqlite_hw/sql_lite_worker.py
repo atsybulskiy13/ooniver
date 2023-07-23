@@ -26,7 +26,7 @@ cursor.executescript('''
     math INTEGER,
     literature INTEGER,
     chemistry INTEGER,
-    FOREIGN KEY (student_id) REFERENCES students(person_id)
+    FOREIGN KEY (student_id) REFERENCES students(id)
     )
 ''')
 
