@@ -1,8 +1,7 @@
 from datetime import datetime
-
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import ForeignKey
-
+# flake8: noqa
 
 class Base(DeclarativeBase):
     pass
@@ -23,11 +22,11 @@ class Team(Base):
 class Player(Base):
     __tablename__ = 'player'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    firstname: Mapped[str]
-    lastname: Mapped[str]
-    age: Mapped[int]
-    height: Mapped[int]
-    speed: Mapped[int]
+    firstname: Mapped[str] = mapped_column()
+    lastname: Mapped[str] = mapped_column()
+    age: Mapped[int] = mapped_column()
+    height: Mapped[int] = mapped_column()
+    speed: Mapped[int] = mapped_column()
     team_id: Mapped[int] = mapped_column(ForeignKey("team.id"), nullable=True)
 
     def __init__(self, firstname, lastname, age, height, speed, team_id):
