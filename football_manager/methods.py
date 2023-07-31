@@ -1,4 +1,8 @@
+from datetime import datetime
+
 from models import Team, Player
+
+
 # flake8: noqa
 
 def create_team(session, name: str):
@@ -18,10 +22,14 @@ def get_all_teams(session):
     return teams
 
 
-def get_all_team_names(session):
-    team_names = session.query(Team.name).all()
-    team_names = [name[0] for name in team_names]
+def get_all_team_names(teams):
+    team_names = [teams.name for teams in teams]
     return team_names
+
+
+def get_all_team_ids(teams):
+    team_ids = [teams.id for teams in teams]
+    return team_ids
 
 
 def get_player_fullnames(players):
@@ -29,11 +37,14 @@ def get_player_fullnames(players):
     return all_player_fullnames
 
 
-# спросить на занятии!!!!
-
 def get_all_players(session):
     players = session.query(Player).filter().all()
     return players
+
+
+def get_all_players_ids(players):
+    player_ids = [players.id for players in players]
+    return player_ids
 
 
 def get_all_players_by_team_id(session, team_id):
@@ -58,8 +69,36 @@ def add_player_to_team(session, player, team):
     session.commit()
 
 
-def remove_player_from_team(session, player):
-    player.team_id = None
+# def remove_player_from_team(session, player, team):
+#     player.team_id = None
+#     change_team_updated_at()
+#     change_players_amount()
+#     session.commit()
+
+
+def get_player_id_from_user():
+    player_id = int(input('Enter player id: '))
+    return player_id
+
+
+def get_team_id_from_user():
+    team_id = int(input('Enter team id: '))
+    return team_id
+
+
+def change_team_updated_at(session, team):  # переместить в метод класса как save
+    team.updated_at = datetime.now()
+    session.commit()
+
+
+def change_players_amount(session, team, command):  # переместить в метод класса как plus_one minus_one
+    if command == '+':
+        team.players_amount += 1
+    elif command == '-':
+        team.players_amount -= 1
+    elif command == 'all':
+        team.players_amount = 0
+
     session.commit()
 
 
@@ -68,9 +107,9 @@ def get_records_amount(session, table):
     return records_amount
 
 
-def print_name(name_list):
+def print_name_with_id(name_list, id_list):
     if len(name_list) > 0:
         for i in range(len(name_list)):
-            print(f'{i + 1}. {name_list[i]}')
+            print(f'{i + 1}. id - {id_list[i]}, name - {name_list[i]}')
     else:
         print('No data!')
