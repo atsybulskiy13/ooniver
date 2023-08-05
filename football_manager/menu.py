@@ -1,4 +1,3 @@
-# flake8: noqa
 def show_menu():
     print()
     print('|---------------MENU---------------|')
@@ -11,9 +10,9 @@ def show_menu():
     print('| 5. Create new player             |')
     print('| 6. Add player to team            |')
     print('| 7. Remove player from team       |')
-    print('| 8. Delete player                 |')
     print('| 8. Delete team                   |')
-    print('| 9. Exit                          |')
+    print('| 9. Delete player                 |')
+    print('| 10. Exit                         |')
     print('|----------------------------------|')
     print()
 
