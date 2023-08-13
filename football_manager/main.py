@@ -15,7 +15,6 @@ def main():
     user_option = get_user_option()
 
     if user_option != '10':
-
         match user_option:
 
             case '1':
@@ -70,7 +69,7 @@ def main():
                 methods.add_player_to_team(player, team)
 
                 team.plus_player()
-                team.team_save(session)
+                team.save(session)
 
             case '7':
                 player_id = methods.get_player_id_from_user()
@@ -81,7 +80,7 @@ def main():
                 player.remove_player_from_team()
 
                 team.minus_player()
-                team.team_save(session)
+                team.save(session)
 
             case '8':
                 team_id = methods.get_team_id_from_user()
@@ -91,8 +90,8 @@ def main():
                     for player in team.players:
                         player.team_id = None
 
-                team.delete_team()
-                team.team_save(session)
+                team.delete()
+                team.save(session)
 
             case '9':
                 player_id = methods.get_player_id_from_user()
@@ -101,10 +100,9 @@ def main():
                 if player.team_id is not None:
                     team = methods.get_team_by_id(session, player.team_id)
                     team.minus_player()
-                    team.team_save(session)
+                    team.save(session)
 
                 player.delete_player()
-                session.commit()
 
         main()
 
