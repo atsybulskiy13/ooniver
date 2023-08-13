@@ -32,9 +32,10 @@ class Student(Base):
     person: Mapped['Person'] = relationship('Person', back_populates='student')
     marks: Mapped['Marks'] = relationship('Marks', back_populates='student')
 
-    def __init__(self, person_id, course):
-        self.person_id = person_id
+    def __init__(self, person, course):
+        self.person = person
         self.course = course
+        self.person_id = person.id
 
 
 class Marks(Base):
@@ -46,8 +47,9 @@ class Marks(Base):
     chemistry: Mapped[int] = mapped_column(Integer())
     student: Mapped['Student'] = relationship('Student', back_populates='marks')
 
-    def __init__(self, student_id, math, literature, chemistry):
-        self.student_id = student_id
+    def __init__(self, student, math, literature, chemistry):
+        self.student_id = student.id
+        self.student = student
         self.math = math
         self.literature = literature
         self.chemistry = chemistry
