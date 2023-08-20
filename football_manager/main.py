@@ -18,36 +18,36 @@ def main():
         match user_option:
 
             case '1':
-                teams = methods.get_all_active_teams(session)
+                teams = Team.get_all_active(session)
 
-                team_names = methods.get_all_active_team_names(teams)
-                all_team_ids = methods.get_all_active_team_ids(teams)
+                team_names = [teams.name for teams in teams]
+                team_ids = [teams.id for teams in teams]
 
                 print('Teams: ')
-                methods.print_name_with_id(team_names, all_team_ids)
+                methods.print_name_with_id(team_names, team_ids)
 
             case '2':
-                all_players = methods.get_all_active_players(session)
+                active_players = Player.get_active(session)
 
-                all_players_fullnames = methods.get_player_fullnames(all_players)
-                all_player_ids = methods.get_all_active_players_ids(all_players)
+                players_fullnames = [player.firstname + ' ' + player.lastname for player in active_players]
+                player_ids = [players.id for players in active_players]
 
                 print('Players: ')
-                methods.print_name_with_id(all_players_fullnames, all_player_ids)
+                methods.print_name_with_id(players_fullnames, player_ids)
 
             case '3':
-                players_without_team = methods.get_all_active_players_by_team_id(session, None)
+                players_without_team = Player.get_all_by_team(session, None)
 
-                players_without_team_fullnames = methods.get_player_fullnames(players_without_team)
-                players_without_team_ids = methods.get_all_active_players_ids(players_without_team)
+                players_fullnames = [player.firstname + ' ' + player.lastname for player in players_without_team]
+                players_ids = [players.id for players in players_without_team]
 
                 print('Players without team: ')
-                methods.print_name_with_id(players_without_team_fullnames, players_without_team_ids)
+                methods.print_name_with_id(players_fullnames, players_ids)
 
             case '4':
                 team_name = input('Enter new team name: ')
 
-                Team.create_team(session, team_name)
+                Team.create(session, team_name)
 
             case '5':
                 player_firstname = input("Enter player's firstname: ")
@@ -56,17 +56,17 @@ def main():
                 player_height = int(input("Enter player's height: "))
                 player_speed = int(input("Enter player's speed: "))
 
-                Player.create_player(session, player_firstname, player_lastname, player_age, player_height,
-                                     player_speed)
+                Player.create(session, player_firstname, player_lastname, player_age, player_height,
+                              player_speed)
 
             case '6':
                 player_id = methods.get_player_id_from_user()
                 team_id = methods.get_team_id_from_user()
 
-                player = methods.get_player_by_id(session, player_id)
-                team = methods.get_team_by_id(session, team_id)
+                player = Player.get_by_id(session, player_id)
+                team = Team.get_by_id(session, team_id)
 
-                methods.add_player_to_team(player, team)
+                Player.add_to_team(player, team)
 
                 team.plus_player()
                 team.save(session)
@@ -74,35 +74,34 @@ def main():
             case '7':
                 player_id = methods.get_player_id_from_user()
 
-                player = methods.get_player_by_id(session, player_id)
+                player = Player.get_by_id(session, player_id)
                 team = player.team
 
-                player.remove_player_from_team()
+                player.remove_from_team()
 
                 team.minus_player()
                 team.save(session)
 
             case '8':
                 team_id = methods.get_team_id_from_user()
-                team = methods.get_team_by_id(session, team_id)
+                team = Team.get_by_id(session, team_id)
 
                 if team.players:
                     for player in team.players:
                         player.team_id = None
 
                 team.delete()
-                team.save(session)
 
             case '9':
                 player_id = methods.get_player_id_from_user()
-                player = methods.get_player_by_id(session, player_id)
+                player = Player.get_by_id(session, player_id)
 
                 if player.team_id is not None:
-                    team = methods.get_team_by_id(session, player.team_id)
+                    team = Team.get_by_id(session, player.team_id)
                     team.minus_player()
                     team.save(session)
 
-                player.delete_player()
+                player.delete()
 
         main()
 

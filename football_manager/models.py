@@ -1,6 +1,5 @@
 from datetime import datetime
 from typing import List
-
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, String, Boolean, DateTime
 
@@ -23,7 +22,7 @@ class Team(Base):
         self.name = name
 
     @classmethod
-    def create_team(cls, session, team_name):
+    def create(cls, session, team_name):
         team = Team(team_name)
         session.add(team)
         session.commit()
@@ -38,9 +37,21 @@ class Team(Base):
         self.updated_at = datetime.now()
         session.commit()
 
-    def delete(self):
+    def delete(self, session):
         self.is_active = False
+        self.players = None
         self.players_amount = 0
+        self.save(session)
+
+    @staticmethod
+    def get_all_active(session):
+        teams = session.query(Team).filter(Team.is_active).all()
+        return teams
+
+    @staticmethod
+    def get_by_id(session, team_id):
+        team = session.get(Team, team_id)
+        return team
 
 
 class Player(Base):
@@ -62,18 +73,36 @@ class Player(Base):
         self.height = height
         self.speed = speed
         self.team = team
-        self.team_id = team.id
 
     @classmethod
-    def create_player(cls, session, firstname, lastname, age, height, speed, team_id=None):
-        player = Player(firstname, lastname, age, height, speed, team_id)
+    def create(cls, session, firstname, lastname, age, height, speed, team_id=None):
+        player = cls(firstname, lastname, age, height, speed, team_id)
         session.add(player)
         session.commit()
 
     def delete(self, session):
         self.is_active = False
-        self.team_id = None
+        self.team = None
         session.commit()
 
-    def remove_player_from_team(self):
-        self.team_id = None
+    def remove_from_team(self):
+        self.team = None
+
+    @staticmethod
+    def get_active(session):
+        players = session.query(Player).filter(Player.is_active).all()
+        return players
+
+    @staticmethod
+    def get_all_by_team(session, team):
+        players = session.query(Player).filter(Player.team == team).all()
+        return players
+
+    @staticmethod
+    def get_by_id(session, player_id):
+        player = session.get(Player, player_id)
+        return player
+
+    @staticmethod
+    def add_to_team(player, team):
+        player.team = team
