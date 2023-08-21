@@ -35,7 +35,6 @@ class Student(Base):
     def __init__(self, person, course):
         self.person = person
         self.course = course
-        self.person_id = person.id
 
 
 class Marks(Base):
@@ -48,7 +47,6 @@ class Marks(Base):
     student: Mapped['Student'] = relationship('Student', back_populates='marks')
 
     def __init__(self, student, math, literature, chemistry):
-        self.student_id = student.id
         self.student = student
         self.math = math
         self.literature = literature
