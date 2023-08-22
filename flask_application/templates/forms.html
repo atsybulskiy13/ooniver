@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="get" name="mood" action="/mood">
+  <p>Get form</p>
+  <textarea placeholder="How are you?" name="mood" required></textarea>
+  <input type="submit" value="Send">
+</form>
+
+<form method="post" name="user_data" action="user_data">
+  <p>Post form</p>
+  <input type="text" name="name" placeholder="Name" required>
+  <br>
+  <input type="number" name="age" placeholder="Age" required>
+  <br>
+  <select name="sex" required>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+  <input type="submit" value="Send">
+</form>
+
+</body>
+</html>
