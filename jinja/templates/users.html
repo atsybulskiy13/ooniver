@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+    <ol>
+        {% for user in users %}
+            {% if 'a' in user.username %}
+                <li>
+                    <span style="color:blue; font-weight: bold;">
+                        {{user.username}}
+                    </span>
+                     {{user.email}}
+                </li>
+            {% else %}
+                <li>
+                    {{user.username}} {{user.email}}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+</body>
+</html>
