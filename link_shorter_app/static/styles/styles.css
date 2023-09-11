@@ -1,0 +1,38 @@
+body {
+  background-color: lightblue;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+.link_field {
+    width: 100%;
+    padding: 16px 16px;
+    margin: 8px 0;
+    box-sizing: border-box;
+
+}
+
+.my_form {
+    width: 100%;
+}
+
+.converter {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.submit_button {
+    width: 20%;
+    height: 5%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
