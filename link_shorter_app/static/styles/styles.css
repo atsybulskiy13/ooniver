@@ -30,9 +30,47 @@ body {
 }
 
 .submit_button {
-    width: 20%;
-    height: 5%;
-    position: absolute;
+    width: 30%;
+    height: 30%;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
+    border-radius: 10px;
 }
+
+.links_table {
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+}
+
+
+th {
+    font-size: 20px;
+    color: white;
+}
+
+#myTable tr, td, th {
+  border: 1px solid;
+  border-collapse: collapse;
+  color: white;
+  table-layout: fixed;
+
+}
+
+table tr td:nth-child(1) {
+  width:1%;
+}
+table tr td:nth-child(2) {
+  width:2%;
+}
+table tr td:nth-child(3) {
+  width: 2%;
+}
+table tr td:nth-child(4) {
+  width: 3%;
+}
+table tr td:nth-child(5) {
+  width: 1%;
+}
+

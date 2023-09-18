@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import shortuuid
+from datetime import datetime
 
 db = SQLAlchemy()
 app = Flask(__name__)
@@ -9,8 +10,11 @@ db.init_app(app)
 
 
 class Link(db.Model):
-    original_link = db.Column(db.String, unique=True, nullable=False, primary_key=True)
+    link_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
+    original_link = db.Column(db.String, unique=True, nullable=False)
     short_link = db.Column(db.String, unique=True, nullable=True)
+    created_at = db.Column(db.String, default=datetime.now().date())
+    clicks = db.Column(db.Integer, default=0)
 
 
 with app.app_context():
@@ -19,22 +23,17 @@ with app.app_context():
 
 def create_short_link():
     short_links = db.session.execute(db.select(Link.short_link))
-    new_short_link = shortuuid.uuid()
+    new_short_link = shortuuid.uuid()[:5]
 
     if new_short_link not in short_links:
-        return request.base_url + new_short_link
+        link = request.host_url + new_short_link
+        return link
     else:
         return create_short_link()
 
 
-@app.route('/links')
-def all_links():
-    links = db.session.execute(db.select(Link.original_link, Link.short_link).order_by(Link.original_link))
-    return render_template('links.html', links=links)
-
-
-@app.route('/short_linker', methods=["GET", "POST"])
-def link_converter():
+@app.route('/', methods=["GET", "POST"])
+def index():
     if request.method == "POST":
         original_link = request.form["original_link"]
         short_link = create_short_link()
@@ -46,17 +45,19 @@ def link_converter():
 
         db.session.add(link)
         db.session.commit()
-        return redirect(url_for("all_links"))
+        return redirect(url_for("index"))
 
-    return render_template('converter.html')
+    links = db.session.execute(db.select(Link).order_by(Link.link_id)).scalars()
+    return render_template('index.html', links=links)
 
 
-@app.route("/<short_link>")
+@app.route('/<short_link>')
 def redirect_to_original_link(short_link):
-    original_link = db.session.execute(db.select(Link.original_link).where(Link.short_link == short_link))
-    print(original_link)
-
-    return redirect(url_for(original_link))
+    short_link = request.host_url + short_link
+    link = db.session.execute(db.select(Link).where(Link.short_link == short_link)).scalar_one()
+    link.clicks += 1
+    db.session.commit()
+    return redirect(link.original_link)
 
 
 if __name__ == '__main__':
