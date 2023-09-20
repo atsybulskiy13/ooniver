@@ -1,0 +1,12 @@
+<div>
+    <span><a href="{{ url_for('index') }}">index</a></span>
+    {% if user %}
+        <span><a href="{{ url_for('logout') }}">logout</a></span>
+    {% else %}
+        <span><a href="{{ url_for('login') }}">login</a></span>
+        <span><a href="{{ url_for('register') }}">register</a></span>
+    {% endif %}
+    <span><a href="https://google.com">google</a></span>
+    <span><a href="https://ya.ru">ya</a></span>
+    <span><a href="https://www.speedtest.net/pl">speedtest</a></span>
+</div>
