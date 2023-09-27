@@ -36,7 +36,15 @@ body {
     left: 50%;
     transform: translateX(-50%);
     border-radius: 10px;
+    background-color: white;
+    transition-duration: 0.4s;
 }
+
+.submit_button:hover {
+    background-color: blue;
+    color: white;
+}
+
 
 .links_table {
     display: flex;
@@ -73,4 +81,3 @@ table tr td:nth-child(4) {
 table tr td:nth-child(5) {
   width: 1%;
 }
-

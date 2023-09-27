@@ -5,16 +5,24 @@ from datetime import datetime
 
 db = SQLAlchemy()
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///links.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///links.db'
 db.init_app(app)
 
 
 class Link(db.Model):
-    link_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     original_link = db.Column(db.String, unique=True, nullable=False)
     short_link = db.Column(db.String, unique=True, nullable=True)
     created_at = db.Column(db.String, default=datetime.now().date())
     clicks = db.Column(db.Integer, default=0)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
+    email = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    links = db.relationship('Link', backref='user', lazy=True)
 
 
 with app.app_context():
@@ -23,19 +31,22 @@ with app.app_context():
 
 def create_short_link():
     short_links = db.session.execute(db.select(Link.short_link))
-    new_short_link = shortuuid.uuid()[:5]
 
-    if new_short_link not in short_links:
-        link = request.host_url + new_short_link
-        return link
-    else:
-        return create_short_link()
+    def create_link_if_not_exists():
+        new_short_link = shortuuid.uuid()[:5]
+        if new_short_link not in short_links:
+            link = request.host_url + new_short_link
+            return link
+        else:
+            return create_link_if_not_exists()
+
+    return create_link_if_not_exists()
 
 
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == "POST":
-        original_link = request.form["original_link"]
+    if request.method == 'POST':
+        original_link = request.form['original_link']
         short_link = create_short_link()
 
         link = Link(
@@ -45,10 +56,20 @@ def index():
 
         db.session.add(link)
         db.session.commit()
-        return redirect(url_for("index"))
+        return redirect(url_for('index'))
 
-    links = db.session.execute(db.select(Link).order_by(Link.link_id)).scalars()
+    links = db.session.execute(db.select(Link).order_by(Link.id)).scalars()
     return render_template('index.html', links=links)
+
+
+@app.route('/login')
+def login():
+    return render_template('sign_in.html')
+
+
+@app.route('/registration')
+def registration():
+    return render_template('sign_up.html')
 
 
 @app.route('/<short_link>')
