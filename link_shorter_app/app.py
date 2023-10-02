@@ -1,11 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 import shortuuid
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///links.db'
+app.config['SECRET_KEY'] = 'super-secret-key'
 db.init_app(app)
 
 
@@ -62,13 +64,41 @@ def index():
     return render_template('index.html', links=links)
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        user = User.query.filter_by(email=email).first()
+
+        if not user or not check_password_hash(user.password, password):
+            flash('You entered wrong credentials!', category='error')
+            return redirect(url_for('login'))
+        flash('You logged in successfully!')
+        return redirect(url_for('index'))
+
     return render_template('sign_in.html')
 
 
-@app.route('/registration')
+@app.route('/registration', methods=['GET', 'POST'])
 def registration():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        user = User.query.filter_by(email=email).first()
+
+        if user:
+            return redirect(url_for('registration'))
+
+        new_user = User(email=email, password=generate_password_hash(password, method='sha256'))
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+
     return render_template('sign_up.html')
 
 
@@ -83,5 +113,3 @@ def redirect_to_original_link(short_link):
 
 if __name__ == '__main__':
     app.run(debug=True)
-# request.base_url
-# add escape()

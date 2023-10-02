@@ -6,9 +6,14 @@
     <title>Registration</title>
 </head>
 <body>
+{% extends "layout.html" %}
+{% block body %}
 <div class="regisration_logo">
         <h1>Registration</h1>
 </div>
+{% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+{% endif %}
 <div class="sign_up">
         <form method="post" class="sign_up_form">
             <p>
@@ -24,6 +29,6 @@
 
         </form>
     </div>
-
+{% endblock %}
 </body>
 </html>
