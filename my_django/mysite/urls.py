@@ -1,5 +1,5 @@
 from django.urls import path
-from my_django.mysite.views import index, main_page, simple_numbers, admin_page, guest_page, check_role, palindrome,\
+from mysite.views import index, main_page, simple_numbers, admin_page, guest_page, check_role, palindrome,\
     check_view, book_booking
 
 urlpatterns = [

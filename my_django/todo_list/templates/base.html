@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>
+       {% block title %}base page{% endblock %}
+   </title>
+
+</head>
+<body style="text-align: center">
+   <div id="sidebar">
+       {% block sidebar %}
+
+        <p><a href="/">Home</a></p>
+        <p><a href="/todo list/">Todo list</a></p>
+        <p><a href="/create-todo">Create task</a> </p>
+
+       {% endblock %}
+   </div>
+
+   <div id="content">
+       {% block content %}{% endblock %}
+   </div>
+
+</body>
+</html>

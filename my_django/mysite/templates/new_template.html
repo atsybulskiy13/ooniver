@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if user_data %}
+    <p>{{user_data.book_name}}</p>
+    <p>{{user_data.person_name}}</p>
+    <p>{{user_data.period}}</p>
+{%else%}
+    <p>
+        Ты ничего не ввел!!!!
+    </p>
+{% endif %}
+</body>
+</html>

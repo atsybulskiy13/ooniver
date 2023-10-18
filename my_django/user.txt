@@ -1,1 +1,1 @@
-{"book_name": "Tom Soer", "person_name": "Sasha", "period": "1 month"}
+{"book_name": "", "person_name": "", "period": ""}
