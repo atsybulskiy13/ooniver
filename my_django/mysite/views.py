@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 import json
 from datetime import datetime
-
-from my_django.mysite.utils import get_simple_numbers_in_number, if_palindrom
+# flake8: noqa
+from mysite.utils import get_simple_numbers_in_number, if_palindrom
 
 
 # Create your views here.
@@ -25,8 +25,8 @@ def simple_numbers(request, number):
     return response
 
 
-# def admin_page(request):
-#     return HttpResponse(f'<h1>Вы вошли как Админ</h1>')
+def admin_page(request):
+    return HttpResponse(f'<h1>Вы вошли как Админ</h1>')
 
 
 def guest_page(request, role):
@@ -71,4 +71,8 @@ def book_booking(request: HttpRequest):
     with open('user.txt', 'w') as user_file:
         user_file.write(json.dumps(user_data))
 
-    return HttpResponse(status=200)
+    return render(
+        request=request,
+        template_name='new_template.html',
+        context={'user_data': user_data}
+    )
