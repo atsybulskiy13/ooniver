@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/styles/styles.css">
+    <title>ShortLinker</title>
+</head>
+<body>
+{% extends "layout.html" %}
+{% block body %}
+    <div class="logo">
+        <h1>ShortLinker</h1>
+    </div>
+    <div class="converter">
+        <form method="post" class="my_form">
+            <p>
+                <input class="link_field" type="text" name="original_link" placeholder="Original link" required>
+            </p>
+            <input type="submit" class="submit_button">
+
+        </form>
+    </div>
+    <div class="links_table">
+        <table id="myTable">
+         <tr>
+             <th>ID</th>
+             <th>Original link</th>
+             <th>Short link</th>
+             <th>Created at</th>
+             <th>Clicks</th>
+
+         </tr>
+         {% for link in links %}
+         <tr>
+             <td class="id">
+                 {{link.id}}
+             </td>
+
+             <td>
+                 <a href="{{link.original_link}}">{{link.original_link}}</a>
+             </td>
+             <td>
+                 <a href="{{link.short_link}}">{{link.short_link}}</a>
+             </td>
+             <td>
+                 {{link.created_at}}
+             </td>
+             <td>
+                 {{link.clicks}}
+             </td>
+
+         </tr>
+         {% endfor %}
+     </table>
+    </div>
+{% endblock %}
+</body>
+</html>

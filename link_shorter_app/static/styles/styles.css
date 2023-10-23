@@ -1,0 +1,83 @@
+body {
+  background-color: lightblue;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+.link_field {
+    width: 100%;
+    padding: 16px 16px;
+    margin: 8px 0;
+    box-sizing: border-box;
+
+}
+
+.my_form {
+    width: 100%;
+}
+
+.converter {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.submit_button {
+    width: 30%;
+    height: 30%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    background-color: white;
+    transition-duration: 0.4s;
+}
+
+.submit_button:hover {
+    background-color: blue;
+    color: white;
+}
+
+
+.links_table {
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+}
+
+
+th {
+    font-size: 20px;
+    color: white;
+}
+
+#myTable tr, td, th {
+  border: 1px solid;
+  border-collapse: collapse;
+  color: white;
+  table-layout: fixed;
+
+}
+
+table tr td:nth-child(1) {
+  width:1%;
+}
+table tr td:nth-child(2) {
+  width:2%;
+}
+table tr td:nth-child(3) {
+  width: 2%;
+}
+table tr td:nth-child(4) {
+  width: 3%;
+}
+table tr td:nth-child(5) {
+  width: 1%;
+}
